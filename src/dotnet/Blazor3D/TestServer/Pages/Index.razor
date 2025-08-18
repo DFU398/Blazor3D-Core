@@ -20,6 +20,7 @@
     </div>
     <div>
         <button @onclick="OnLoadObjButtonClick">Load OBJ</button>
+        <button @onclick="OnLoadPcdButtonClick">Load PCD</button>
         <button @onclick="OnClearAllClick">ClearAll</button>
         <button @onclick="OnClearLast">RemoveLast</button>
         <button @onclick="OnToggleCameraClick">ToggleCamera</button>
@@ -70,7 +71,7 @@
                 StopAnimationOnOrbitControlMove = true
             },
 
-            //Zoom = 0.5
+        //Zoom = 0.5
         };
     protected override Task OnInitializedAsync()
     {
@@ -113,7 +114,7 @@
         scene.Add(new AmbientLight());
         var plight = new PointLight()
             {
-                //Color = "red",
+            //Color = "red",
                 Decay = 2,
                 Position = new Vector3(1, 5, 0)
             };
@@ -280,7 +281,34 @@
         var plane = new Plane(new Vector3(-1, 1, 1), 1);
         scene.Add(new PlaneHelper(plane, 1, "green"));
 
-
+        var points =
+            Enumerable.Range(0, 10000)
+            .Select((i) =>
+            {
+                var phi = Random.Shared.NextDouble() * 2 * Math.PI;
+                return new Vector3(
+                    Math.Sin(phi),
+                    Math.Cos(phi),
+                    Random.Shared.NextDouble() * 4
+                );
+            }).ToArray();
+        scene.Add(
+            new Points
+            {
+                Geometry = new PointsGeometry
+                {
+                    Points = points,
+                    Colors = points.Select((xyz) => new Vector3((xyz.X+1)/2, (xyz.Y+1)/2, xyz.Z/4)).ToArray()
+                },
+                Material = new PointsMaterial
+                {
+                    Color = "white",
+                    SizeAttenuation = false,
+                    VertexColors= true
+                },
+                Position = new Vector3(8, 0, -2)
+            }
+        );
     }
 
     private void OnObjectSelected(Object3DArgs e)
@@ -324,6 +352,22 @@
         await View3D1.SetCameraPositionAsync(
             new Vector3(0, 100, 250),// camera position
             new Vector3(0, 50, 0));// optional camera target
+    }
+
+    private async Task OnLoadPcdButtonClick()
+    {
+        // if you need to control the loaded object uuid, generate it here.
+        loadedObjectGuid = Guid.NewGuid();
+
+        await View3D1.Import3DModelAsync(
+            new ImportSettings
+            {
+                Format = Import3DFormats.Pcd,//choose appropriate format
+                FileURL = "https://threejs.org/examples/models/pcd/binary/Zaghetto.pcd",// link to your model file
+                Uuid = loadedObjectGuid, //// skip this, or set null if you don't care the uuid of loaded mesh or group
+                Material = new PointsMaterial(), // It's important to set the right kind of material when importing a point cloud, else the points won't be visible
+            }
+        );
     }
 
     private async Task OnClearAllClick()

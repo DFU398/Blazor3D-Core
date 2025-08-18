@@ -55,5 +55,11 @@
         /// When drawing 2D overlays it can be useful to disable the depth writing in order to layer several things together without creating z-index artifacts.
         /// </summary>
         public bool DepthWrite { get; set; } = true;
+
+        /// <summary>
+        /// Defines whether vertex coloring is used. Default is false. The engine supports RGB and RGBA vertex colors depending on
+        /// whether a three (RGB) or four (RGBA) component color buffer attribute is used.
+        /// </summary>
+        public bool VertexColors { get; set; } = false;
     }
 }

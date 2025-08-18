@@ -26,6 +26,10 @@ namespace HomagGroup.Blazor3D.Enums
         /// <summary>
         /// <a target="_blank" href="https://en.wikipedia.org/wiki/STL_(file_format)">Stl</a> format.
         /// </summary>
-        Stl
+        Stl,
+        /// <summary>
+        /// <a target="_blank" href="https://en.wikipedia.org/wiki/Point_Cloud_Library#PCD_File_Format">Pcd</a> format.
+        /// </summary>
+        Pcd
     }
 }

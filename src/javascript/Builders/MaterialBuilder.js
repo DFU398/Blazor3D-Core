@@ -17,7 +17,8 @@ class MaterialBuilder {
         wireframe: options.wireframe,
         map: map,
         depthTest: options.depthTest,
-        depthWrite: options.depthWrite
+        depthWrite: options.depthWrite,
+        vertexColors: options.vertexColors
       });
       material.uuid = options.uuid;
       return material;
@@ -33,7 +34,8 @@ class MaterialBuilder {
         linejoin : options.lineJoin,
         linewidth : options.lineWidth,
         depthTest: options.depthTest,
-        depthWrite: options.depthWrite
+        depthWrite: options.depthWrite,
+        vertexColors: options.vertexColors
       });
       material.uuid = options.uuid;
       return material;
@@ -49,7 +51,26 @@ class MaterialBuilder {
         map: map,
         rotation: options.rotation,
         depthTest: options.depthTest,
-        depthWrite: options.depthWrite
+        depthWrite: options.depthWrite,
+        vertexColors: options.vertexColors
+      })
+      material.uuid = options.uuid;
+      return material;
+    }
+
+    if(options.type == "PointsMaterial") {
+      const material = new THREE.PointsMaterial({
+        color: options.color,
+        transparent : options.transparent,
+        opacity : options.opacity,
+        map: options.map,
+        alphaMap: options.alphaMap,
+        size: options.size,
+        sizeAttenuation: options.sizeAttenuation,
+        fog: options.fog,
+        depthTest: options.depthTest,
+        depthWrite: options.depthWrite,
+        vertexColors: options.vertexColors
       })
       material.uuid = options.uuid;
       return material;

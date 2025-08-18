@@ -255,6 +255,11 @@
             <a target="_blank" href="https://en.wikipedia.org/wiki/STL_(file_format)">Stl</a> format.
             </summary>
         </member>
+        <member name="F:HomagGroup.Blazor3D.Enums.Import3DFormats.Pcd">
+            <summary>
+            <a target="_blank" href="https://en.wikipedia.org/wiki/Point_Cloud_Library#PCD_File_Format">Pcd</a> format.
+            </summary>
+        </member>
         <member name="T:HomagGroup.Blazor3D.Enums.WrappingType">
             <summary>
             These define the texture's WrapS and WrapT properties, which define horizontal and vertical texture wrapping.
@@ -733,6 +738,38 @@
         <member name="P:HomagGroup.Blazor3D.Geometires.PlaneGeometry.HeightSegments">
             <summary>
             Number of segmented rectangular faces along the height of the sides. Default is 1.
+            </summary>
+        </member>
+        <member name="T:HomagGroup.Blazor3D.Geometires.PointsGeometry">
+            <summary>
+            <para>Geometry for a point cloud.</para>
+            <para>This class inherits from <see cref="T:HomagGroup.Blazor3D.Core.BufferGeometry"/></para>
+            </summary>
+            <inheritdoc><see cref="T:HomagGroup.Blazor3D.Core.BufferGeometry"/></inheritdoc>
+        </member>
+        <member name="P:HomagGroup.Blazor3D.Geometires.PointsGeometry.Points">
+            <summary>
+            Positions of each point. Defaults to empty array.
+            </summary>
+        </member>
+        <member name="P:HomagGroup.Blazor3D.Geometires.PointsGeometry.Normals">
+            <summary>
+            Normal vectors for each point. Defaults to empty array. Optional, leave empty if not used.
+            </summary>
+        </member>
+        <member name="P:HomagGroup.Blazor3D.Geometires.PointsGeometry.Colors">
+            <summary>
+            RGB colors for each point. Defaults to empty array. Optional, leave empty if not used.
+            </summary>
+        </member>
+        <member name="P:HomagGroup.Blazor3D.Geometires.PointsGeometry.Intensities">
+            <summary>
+            Intensities for each point. Defaults to empty array. Optional, leave empty if not used.
+            </summary>
+        </member>
+        <member name="P:HomagGroup.Blazor3D.Geometires.PointsGeometry.Labels">
+            <summary>
+            Numeric labels for each point. Defaults to empty array. Optional, leave empty if not used.
             </summary>
         </member>
         <member name="T:HomagGroup.Blazor3D.Geometires.RingGeometry">
@@ -1371,6 +1408,12 @@
             When drawing 2D overlays it can be useful to disable the depth writing in order to layer several things together without creating z-index artifacts.
             </summary>
         </member>
+        <member name="P:HomagGroup.Blazor3D.Materials.Material.VertexColors">
+            <summary>
+            Defines whether vertex coloring is used. Default is false. The engine supports RGB and RGBA vertex colors depending on
+            whether a three (RGB) or four (RGBA) component color buffer attribute is used.
+            </summary>
+        </member>
         <member name="T:HomagGroup.Blazor3D.Materials.MeshStandardMaterial">
             <summary>
             <para>A standard physically based Material, using Metallic-Roughness workflow.</para>
@@ -1402,6 +1445,47 @@
         <member name="P:HomagGroup.Blazor3D.Materials.MeshStandardMaterial.Map">
             <summary>
             The color map. May optionally include an alpha channel, typically combined with Transparent (todo) or AlphaTest(todo). Default is null. The texture map color is modulated by the diffuse Color.
+            </summary>
+        </member>
+        <member name="T:HomagGroup.Blazor3D.Materials.PointsMaterial">
+            <summary>
+            <para>The default material used by <see cref="T:HomagGroup.Blazor3D.Objects.Points"/>.</para>
+            <para>This class inherits from <see cref="T:HomagGroup.Blazor3D.Materials.Material"/></para>
+            <para>Wrapper for three.js <a target="_blank" href="https://threejs.org/docs/index.html#api/en/materials/PointsMaterial">PointsMaterial</a></para>
+            <para>The documentation comments for this class have been copied from <a target="_blank" href="https://threejs.org/docs/index.html#api/en/materials/PointsMaterial">threejs.org</a>.</para>
+            </summary>
+            <inheritdoc><see cref="T:HomagGroup.Blazor3D.Materials.Material"/></inheritdoc>
+        </member>
+        <member name="P:HomagGroup.Blazor3D.Materials.PointsMaterial.Map">
+            <summary>
+            Sets the color of the points using data from a Texture. May optionally include an alpha channel, typically combined with Transparent (todo) or AlphaTest(todo).
+            Default is null. The texture map color is modulated by the diffuse Color.
+            </summary>
+        </member>
+        <member name="P:HomagGroup.Blazor3D.Materials.PointsMaterial.AlphaMap">
+            <summary>
+            The alpha map is a grayscale texture that controls the opacity across the surface (black: fully transparent; white: fully opaque). Default is null.
+            
+            Only the color of the texture is used, ignoring the alpha channel if one exists.For RGB and RGBA textures, the
+            <a target="_blank" href="https://threejs.org/docs/index.html#api/en/renderers/WebGLRenderer">WebGL renderer</a> will use the green channel
+            when sampling this texture due to the extra bit of precision provided for green in DXT-compressed and uncompressed RGB 565 formats.
+            Luminance-only and luminance/alpha textures will also still work as expected.
+            </summary>
+        </member>
+        <member name="P:HomagGroup.Blazor3D.Materials.PointsMaterial.Fog">
+            <summary>
+            Whether the material is affected by fog. Default is true.
+            </summary>
+        </member>
+        <member name="P:HomagGroup.Blazor3D.Materials.PointsMaterial.Size">
+            <summary>
+            Defines the size of the points in pixels. Default is 1.0.
+            Will be capped if it exceeds the hardware dependent parameter <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/getParameter">gl.ALIASED_POINT_SIZE_RANGE</a>.
+            </summary>
+        </member>
+        <member name="P:HomagGroup.Blazor3D.Materials.PointsMaterial.SizeAttenuation">
+            <summary>
+            Specify whether points' size is attenuated by the camera depth. (Perspective camera only.) Default is true.
             </summary>
         </member>
         <member name="P:HomagGroup.Blazor3D.Materials.SpriteMaterial.Map">
@@ -1580,6 +1664,28 @@
             Material <see cref="T:HomagGroup.Blazor3D.Materials.LineBasicMaterial"/> to draw edges with EdgesGeometry. If not specified, no edges will be drawn.
             </summary>
         </member>
+        <member name="T:HomagGroup.Blazor3D.Objects.Points">
+            <summary>
+            <para>A class for displaying points. The points are rendered by the
+            <a target="_blank" href="https://threejs.org/docs/index.html#api/en/renderers/WebGLRenderer">WebGLRenderer</a> using
+            <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/drawElements">gl.POINTS</a>.
+            </para>
+            <para>This object inherits from <see cref="T:HomagGroup.Blazor3D.Core.Object3D"/></para>
+            <para>Wrapper for three.js <a target="_blank" href="https://threejs.org/docs/index.html#api/en/objects/Points">Points</a></para>
+            <para>The documentation comments for this class have been copied from <a target="_blank" href="https://threejs.org/docs/index.html#api/en/objects/Points">threejs.org</a>.</para>
+            </summary>
+            <inheritdoc><see cref="T:HomagGroup.Blazor3D.Core.Object3D"/></inheritdoc>
+        </member>
+        <member name="P:HomagGroup.Blazor3D.Objects.Points.Material">
+            <summary>
+            <para>An instance of <see cref="T:HomagGroup.Blazor3D.Materials.Material"/>, defining the object's appearance. Default is a <see cref="T:HomagGroup.Blazor3D.Materials.PointsMaterial"/>.</para>
+            </summary>
+        </member>
+        <member name="P:HomagGroup.Blazor3D.Objects.Points.Geometry">
+            <summary>
+            <para>An instance of <see cref="T:HomagGroup.Blazor3D.Core.BufferGeometry"/> (or derived classes), defining the object's structure.</para>
+            </summary>
+        </member>
         <member name="T:HomagGroup.Blazor3D.Objects.Sprite">
             <summary>
             <para>Class representing triangulated polygon mesh based objects. Also serves as a base for other classes.</para>
@@ -1718,9 +1824,9 @@
         </member>
         <member name="P:HomagGroup.Blazor3D.Settings.ImportSettings.Material">
             <summary>
-            <para>Material that will be applied to all loaded meshes.</para>
-            <para>Currently works only for <see cref="F:HomagGroup.Blazor3D.Enums.Import3DFormats.Stl"/> STL format.</para>
-            <para>If not specified, the default <see cref="T:HomagGroup.Blazor3D.Materials.MeshStandardMaterial"/> is applied to the imported objects.</para>
+            <para>Material that will be applied to all loaded models.</para>
+            <para>Currently works only for <see cref="F:HomagGroup.Blazor3D.Enums.Import3DFormats.Stl"/> and <see cref="F:HomagGroup.Blazor3D.Enums.Import3DFormats.Pcd"/> formats.</para>
+            <para>If not specified, the default <see cref="T:HomagGroup.Blazor3D.Materials.Material"/> is applied to the imported objects.</para>
             </summary>
         </member>
         <member name="P:HomagGroup.Blazor3D.Settings.SpriteImportSettings.FileURL">
