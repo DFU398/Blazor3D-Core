@@ -14,28 +14,28 @@ namespace HomagGroup.Blazor3D.Geometires
         { }
 
         /// <summary>
-        /// Positions of each point. Defaults to empty array.
+        /// Positions of each point. Defaults to empty list.
         /// </summary>
-        public Vector3[] Points { get; set; } = Array.Empty<Vector3>();
+        public List<Vector3> Points { get; set; } = new List<Vector3>();
 
         /// <summary>
-        /// Normal vectors for each point. Defaults to empty array. Optional, leave empty if not used.
+        /// Normal vectors for each point. Defaults to empty list. Optional, leave empty if not used.
         /// </summary>
-        public Vector3[] Normals { get; set; } = Array.Empty<Vector3>();
+        public List<Vector3> Normals { get; set; } = new List<Vector3>();
 
         /// <summary>
-        /// RGB colors for each point. Defaults to empty array. Optional, leave empty if not used.
+        /// RGB colors for each point. Defaults to empty list. Optional, leave empty if not used.
         /// </summary>
-        public Vector3[] Colors { get; set; } = Array.Empty<Vector3>();
+        public List<Vector3> Colors { get; set; } = new List<Vector3>();
 
         /// <summary>
-        /// Intensities for each point. Defaults to empty array. Optional, leave empty if not used.
+        /// Intensities for each point. Defaults to empty list. Optional, leave empty if not used.
         /// </summary>
-        public double[] Intensities{ get; set; } = Array.Empty<double>();
+        public List<double> Intensities{ get; set; } = new List<double>();
 
         /// <summary>
-        /// Numeric labels for each point. Defaults to empty array. Optional, leave empty if not used.
+        /// Numeric labels for each point. Defaults to empty list. Optional, leave empty if not used.
         /// </summary>
-        public int[] Labels{ get; set; } = Array.Empty<int>();
+        public List<int> Labels{ get; set; } = new List<int>();
     }
 }

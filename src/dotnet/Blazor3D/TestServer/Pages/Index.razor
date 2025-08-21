@@ -291,14 +291,14 @@
                     Math.Cos(phi),
                     Random.Shared.NextDouble() * 4
                 );
-            }).ToArray();
+            }).ToList();
         scene.Add(
             new Points
             {
                 Geometry = new PointsGeometry
                 {
                     Points = points,
-                    Colors = points.Select((xyz) => new Vector3((xyz.X+1)/2, (xyz.Y+1)/2, xyz.Z/4)).ToArray()
+                    Colors = points.Select((xyz) => new Vector3((xyz.X+1)/2, (xyz.Y+1)/2, xyz.Z/4)).ToList()
                 },
                 Material = new PointsMaterial
                 {
@@ -307,6 +307,15 @@
                     VertexColors= true
                 },
                 Position = new Vector3(8, 0, -2)
+            }
+        );
+
+        scene.Add(
+            new Mesh()
+            {
+                Geometry = CubeFromTriangles(),
+                Position = new Vector3(10, 0, 0),
+                EdgesMaterial = new LineBasicMaterial{ Color="black" }
             }
         );
     }
@@ -423,7 +432,44 @@
         {
             await View3D1.SelectByUuidAsync(selectObjectGuid.Value);
         }
-        
+
+    }
+
+    private TrianglesGeometry CubeFromTriangles()
+    {
+        var left = -1;
+        var right = 1;
+        var top = 1;
+        var bottom = -1;
+        var front = 1;
+        var back = -1;
+        var ltf = new Vector3(left, top, front);
+        var rtf = new Vector3(right, top, front);
+        var lbf = new Vector3(left, bottom, front);
+        var rbf = new Vector3(right, bottom, front);
+        var ltb = new Vector3(left, top, back);
+        var rtb = new Vector3(right, top, back);
+        var lbb = new Vector3(left, bottom, back);
+        var rbb = new Vector3(right, bottom, back);
+        return
+            new TrianglesGeometry()
+            {
+                Triangles = new List<Triangle3>
+                {
+                    new Triangle3{PositionA=ltf, PositionB=lbf, PositionC=rbf}.WithNormalsFromPositions(),
+                    new Triangle3{PositionA=ltf, PositionB=rbf, PositionC=rtf}.WithNormalsFromPositions(),
+                    new Triangle3{PositionA=ltb, PositionB=rtb, PositionC=rbb}.WithNormalsFromPositions(),
+                    new Triangle3{PositionA=ltb, PositionB=rbb, PositionC=lbb}.WithNormalsFromPositions(),
+                    new Triangle3{PositionA=ltb, PositionB=lbb, PositionC=lbf}.WithNormalsFromPositions(),
+                    new Triangle3{PositionA=ltb, PositionB=lbf, PositionC=ltf}.WithNormalsFromPositions(),
+                    new Triangle3{PositionA=rtf, PositionB=rbf, PositionC=rbb}.WithNormalsFromPositions(),
+                    new Triangle3{PositionA=rtf, PositionB=rbb, PositionC=rtb}.WithNormalsFromPositions(),
+                    new Triangle3{PositionA=ltf, PositionB=rtf, PositionC=rtb}.WithNormalsFromPositions(),
+                    new Triangle3{PositionA=ltf, PositionB=rtb, PositionC=ltb}.WithNormalsFromPositions(),
+                    new Triangle3{PositionA=lbf, PositionB=lbb, PositionC=rbb}.WithNormalsFromPositions(),
+                    new Triangle3{PositionA=lbf, PositionB=rbb, PositionC=rbf}.WithNormalsFromPositions(),
+                }
+            };
     }
 }
 
