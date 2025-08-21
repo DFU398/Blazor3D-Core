@@ -50,7 +50,9 @@
                 (float)(this.PositionC.Y - this.PositionA.Y),
                 (float)(this.PositionC.Z - this.PositionA.Z)
             );
-            var normal = System.Numerics.Vector3.Cross(aToB, aToC);
+            var normal = System.Numerics.Vector3.Normalize(
+                System.Numerics.Vector3.Cross(aToB, aToC)
+            );
             var resultNormal = new Vector3(normal.X, normal.Y, normal.Z);
             return new Triangle3
             {
