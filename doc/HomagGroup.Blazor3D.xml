@@ -1074,6 +1074,18 @@
             This value determines, how many times the geometry winds around a circle in the interior of the torus. Default is 3.
             </summary>
         </member>
+        <member name="T:HomagGroup.Blazor3D.Geometires.TrianglesGeometry">
+            <summary>
+            <para>Geometry for a mesh from multiple triangles.</para>
+            <para>This class inherits from <see cref="T:HomagGroup.Blazor3D.Core.BufferGeometry"/></para>
+            </summary>
+            <inheritdoc><see cref="T:HomagGroup.Blazor3D.Core.BufferGeometry"/></inheritdoc>
+        </member>
+        <member name="P:HomagGroup.Blazor3D.Geometires.TrianglesGeometry.Triangles">
+            <summary>
+            Lists of vertices for each polygon. Each vertex has a position and a normal vector.
+            </summary>
+        </member>
         <member name="T:HomagGroup.Blazor3D.Helpers.ArrowHelper">
             <summary>
             <para>An 3D arrow object for visualizing directions.</para>
@@ -1553,6 +1565,46 @@
         <member name="P:HomagGroup.Blazor3D.Maths.Plane.Constant">
             <summary>
             The signed distance from the origin to the plane. Default is 0.
+            </summary>
+        </member>
+        <member name="T:HomagGroup.Blazor3D.Maths.Triangle3">
+            <summary>
+            A triangle in 3D space with normal vectors for each vertex.
+            </summary>
+        </member>
+        <member name="P:HomagGroup.Blazor3D.Maths.Triangle3.PositionA">
+            <summary>
+            Position of the first vertex.
+            </summary>
+        </member>
+        <member name="P:HomagGroup.Blazor3D.Maths.Triangle3.PositionB">
+            <summary>
+            Position of the second vertex.
+            </summary>
+        </member>
+        <member name="P:HomagGroup.Blazor3D.Maths.Triangle3.PositionC">
+            <summary>
+            Position of the third vertex.
+            </summary>
+        </member>
+        <member name="P:HomagGroup.Blazor3D.Maths.Triangle3.NormalA">
+            <summary>
+            Normal vector of the first vertex.
+            </summary>
+        </member>
+        <member name="P:HomagGroup.Blazor3D.Maths.Triangle3.NormalB">
+            <summary>
+            Normal vector of the second vertex.
+            </summary>
+        </member>
+        <member name="P:HomagGroup.Blazor3D.Maths.Triangle3.NormalC">
+            <summary>
+            Normal vector of the third vertex.
+            </summary>
+        </member>
+        <member name="M:HomagGroup.Blazor3D.Maths.Triangle3.WithNormalsFromPositions">
+            <summary>
+            Uses the positions of the vertices to calculate normal vectors perpendicular to the face, assuming the vertices are ordered counterclockwise when seen from the outside.
             </summary>
         </member>
         <member name="T:HomagGroup.Blazor3D.Maths.Vector2">
