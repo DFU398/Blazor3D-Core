@@ -29,10 +29,10 @@ namespace HomagGroup.Blazor3D.Settings
         /// </summary>
         public Guid? Uuid { get; set; } = null;
         /// <summary>
-        /// <para>Material that will be applied to all loaded meshes.</para>
-        /// <para>Currently works only for <see cref="Import3DFormats.Stl"/> STL format.</para>
-        /// <para>If not specified, the default <see cref="MeshStandardMaterial"/> is applied to the imported objects.</para>
+        /// <para>Material that will be applied to all loaded models.</para>
+        /// <para>Currently works only for <see cref="Import3DFormats.Stl"/> and <see cref="Import3DFormats.Pcd"/> formats.</para>
+        /// <para>If not specified, the default <see cref="Materials.Material"/> is applied to the imported objects.</para>
         /// </summary>
-        public MeshStandardMaterial Material { get; set; } = null!;
+        public Material Material { get; set; } = null!;
     }
 }

@@ -4,6 +4,7 @@ import MeshBuilder from "./MeshBuilder";
 import GroupBuilder from "./GroupBuilder";
 import LineBuilder from "./LineBuilder";
 import SpriteBuilder from "./SpriteBuilder";
+import PointsBuilder from "./PointsBuilder";
 
 class SceneBuilder {
 
@@ -38,6 +39,10 @@ class SceneBuilder {
 
     if (options.type.includes("Sprite")) {
       return SpriteBuilder.BuildSprite(options);
+    }
+
+    if (options.type == "Points") {
+      return PointsBuilder.BuildPoints(options)
     }
   }
 }

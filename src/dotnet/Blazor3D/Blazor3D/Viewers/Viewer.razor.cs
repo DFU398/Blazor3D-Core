@@ -364,7 +364,10 @@ namespace HomagGroup.Blazor3D.Viewers
         private async Task OnObjectLoadedPrivate(Object3DArgs e)
         {
             var json = await bundleModule.InvokeAsync<string>("getSceneItemByGuid", e.UUID);
-            if (json.Contains("\"type\":\"Group\""))
+
+            var type = JsonConvert.DeserializeAnonymousType(json, new { Type="" })?.Type;
+
+            if (type == "Group")
             {
                 var jobject = JObject.Parse(json);
                 var name = jobject.Property("name")?.Value.ToString() ?? string.Empty;
@@ -381,8 +384,7 @@ namespace HomagGroup.Blazor3D.Viewers
                 Scene.Children.Add(group);
                 ObjectLoaded?.Invoke(new Object3DArgs() { UUID = e.UUID });
             }
-
-            if (json.Contains("\"type\":\"Mesh\""))
+            else if (type == "Mesh")
             {
                 var mesh = JsonConvert.DeserializeObject<Mesh>(json);
                 if (mesh != null)
@@ -391,14 +393,22 @@ namespace HomagGroup.Blazor3D.Viewers
                     ObjectLoaded?.Invoke(new Object3DArgs() { UUID = e.UUID });
                 }
             }
-
-            if (json.Contains("\"type\":\"Sprite\""))
+            else  if (type == "Sprite")
             {
                 var sprite = JsonConvert.DeserializeObject<Sprite>(json);
                 if (sprite != null)
                 {
                     Scene.Children.Add(sprite);
-                    ObjectLoaded?.Invoke(new Object3DArgs() { UUID= e.UUID });
+                    ObjectLoaded?.Invoke(new Object3DArgs() { UUID = e.UUID });
+                }
+            }
+            else if (type == "Points")
+            {
+                var points = JsonConvert.DeserializeObject<Points>(json);
+                if (points != null)
+                {
+                    Scene.Children.Add(points);
+                    ObjectLoaded?.Invoke(new Object3DArgs() { UUID = e.UUID });
                 }
             }
         }

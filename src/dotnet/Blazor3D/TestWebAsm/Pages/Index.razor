@@ -2,6 +2,7 @@
 @using HomagGroup.Blazor3D.Enums
 @using HomagGroup.Blazor3D.Geometires
 @using HomagGroup.Blazor3D.Lights
+@using HomagGroup.Blazor3D.Materials
 @using HomagGroup.Blazor3D.Maths
 @using HomagGroup.Blazor3D.Objects
 @using HomagGroup.Blazor3D.Scenes
@@ -13,6 +14,7 @@
     </div>
     <div>
         <button @onclick="OnLoadObjButtonClick">Load OBJ</button>
+        <button @onclick="OnLoadPcdButtonClick">Load PCD</button>
     </div>
 
 </div>
@@ -71,26 +73,70 @@
                     Z = -1
                 },
                 Scale = new Vector3(0.5f, 1f, 1f)
-            });
+        });
+
+        var points =
+            Enumerable.Range(0, 10000)
+            .Select((i) =>
+            {
+                var phi = Random.Shared.NextDouble() * 2 * Math.PI;
+                return new Vector3(
+                    Math.Sin(phi),
+                    Math.Cos(phi),
+                    Random.Shared.NextDouble() * 4
+                );
+            }).ToList();
+        scene.Add(
+            new Points
+            {
+                Geometry = new PointsGeometry
+                {
+                    Points = points,
+                    Colors = points.Select((xyz) => new Vector3((xyz.X + 1) / 2, (xyz.Y + 1) / 2, xyz.Z / 4)).ToList()
+                },
+                Material = new PointsMaterial
+                {
+                    Color = "white",
+                    SizeAttenuation = false,
+                    VertexColors = true
+                },
+                Position = new Vector3(2, 0, 0)
+            }
+        );
 
         return base.OnInitializedAsync();
     }
 
     private async Task OnLoadObjButtonClick()
     {
-       //await View3D1.Import3DModelAsync(
-       //     Import3DFormats.Fbx,
-       //     "https://threejs.org/examples/models/fbx/Samba%20Dancing.fbx",
-       //     null,
-       //     Guid.NewGuid());
-       // await View3D1.SetCameraPositionAsync(new Vector3(0, 100, 250));
+        //await View3D1.Import3DModelAsync(
+        //     Import3DFormats.Fbx,
+        //     "https://threejs.org/examples/models/fbx/Samba%20Dancing.fbx",
+        //     null,
+        //     Guid.NewGuid());
+        // await View3D1.SetCameraPositionAsync(new Vector3(0, 100, 250));
 
-       // await View3D1.Import3DModelAsync(
-       //     Import3DFormats.Gltf,
-       //     "https://threejs.org/examples/models/gltf/DamagedHelmet/glTF/DamagedHelmet.gltf",
-       //     null,
-       //     Guid.NewGuid());
-       // await View3D1.SetCameraPositionAsync(new Vector3(0, 1, 5));
+        // await View3D1.Import3DModelAsync(
+        //     Import3DFormats.Gltf,
+        //     "https://threejs.org/examples/models/gltf/DamagedHelmet/glTF/DamagedHelmet.gltf",
+        //     null,
+        //     Guid.NewGuid());
+        // await View3D1.SetCameraPositionAsync(new Vector3(0, 1, 5));
+    }
+
+    private async Task OnLoadPcdButtonClick()
+    {
+        await View3D1.Import3DModelAsync(
+            new ImportSettings
+            {
+                Format = Import3DFormats.Pcd,
+                FileURL = "https://threejs.org/examples/models/pcd/binary/Zaghetto.pcd",
+                Material = new PointsMaterial() // It's important to set the right kind of material when importing a point cloud, else the points won't be visible
+                {
+                    Size = 0.0005
+                }
+            }
+        );
     }
 
 }

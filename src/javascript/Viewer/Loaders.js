@@ -4,6 +4,7 @@ import { ColladaLoader } from "three/examples/jsm/loaders/ColladaLoader";
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { STLLoader } from 'three/examples/jsm/loaders/STLLoader.js';
+import { PCDLoader } from 'three/examples/jsm/loaders/PCDLoader.js';
 import Transforms from "../Utils/Transforms";
 import MaterialBuilder from "../Builders/MaterialBuilder";
 
@@ -87,6 +88,18 @@ class Loaders {
     } );
   }
 
+  static loadPcd(scene, url, guid, containerId, materialSettings) {
+    new PCDLoader().load(
+      url,
+      (points) => {
+        points.material = MaterialBuilder.buildMaterial(materialSettings);
+        points.uuid = guid;
+        scene.add(points);
+        Loaders.callDotNet(containerId, guid);
+      }
+    );
+  }
+
   static import3DModel(scene, settings, containerId) {
     const format = settings.format;
     let objUrl = settings.fileURL;
@@ -109,6 +122,10 @@ class Loaders {
 
     if(format == "Stl"){
       return Loaders.loadStl(scene, objUrl, guid, containerId, material);
+    }
+
+    if(format == "Pcd"){
+      return Loaders.loadPcd(scene, objUrl, guid, containerId, material);
     }
     
     return null;

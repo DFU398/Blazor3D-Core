@@ -196,6 +196,39 @@ class GeometryBuilder {
       return geometry;
     }
 
+    if (options.type == "PointsGeometry") {
+      const geometry = new THREE.BufferGeometry().setFromPoints(options.points);
+
+      if (options.normals.length > 0){
+        const normals = [];
+        for (let i = 0, l = options.normals.length; i < l; i ++) {
+          const point = options.normals[i];
+          normals.push(point.x, point.y, point.z);
+        }
+        geometry.setAttribute('normal', new THREE.Float32BufferAttribute(normals, 3));
+      }
+
+      if (options.colors.length > 0){
+        const colors = [];
+        for (let i = 0, l = options.colors.length; i < l; i ++) {
+          const point = options.colors[i];
+          colors.push(point.x, point.y, point.z);
+        }
+        geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
+      }
+
+      if (options.intensities.length > 0){
+        geometry.setAttribute('intensity', new THREE.Float32BufferAttribute(options.intensities, 1));
+      }
+
+      if (options.labels.length > 0){
+        geometry.setAttribute('label', new THREE.Int32BufferAttribute(options.labels, 1));
+      }
+
+      geometry.uuid = options.uuid;
+      return geometry;
+    }
+
     console.log("geometry type not found", options);
   }
 }
