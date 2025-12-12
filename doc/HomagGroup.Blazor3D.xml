@@ -1952,6 +1952,12 @@
             <param name="uuid">Object's unique identifier.</param>
             <returns>Task</returns>
         </member>
+        <member name="M:HomagGroup.Blazor3D.Viewers.Viewer.MoveObjectByUuidAsync(System.Guid,HomagGroup.Blazor3D.Maths.Vector3,HomagGroup.Blazor3D.Maths.Euler,HomagGroup.Blazor3D.Maths.Vector3)">
+            <summary>
+            Move object with the given id to new position from scene.
+            </summary>
+            <returns>Task</returns>
+        </member>
         <member name="M:HomagGroup.Blazor3D.Viewers.Viewer.SelectByUuidAsync(System.Guid)">
             <summary>
             <para>Selects object in scene by it's unique identifier</para>

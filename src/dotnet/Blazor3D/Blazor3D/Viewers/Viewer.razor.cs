@@ -206,6 +206,36 @@ namespace HomagGroup.Blazor3D.Viewers
         }
 
         /// <summary>
+        /// Move object with the given id to new position from scene.
+        /// </summary>
+        /// <returns>Task</returns>
+        public async Task MoveObjectByUuidAsync(Guid uuid, Vector3? position = null, Euler? rotation = null, Vector3? scale = null)
+        {
+            var json = JsonConvert.SerializeObject(
+                new { position = position, rotation = rotation, scale = scale },
+                SerializationHelper.GetSerializerSettings()
+            );
+            await bundleModule.InvokeVoidAsync("moveObjectByUuid", json, uuid);
+
+            var obj = Viewer.GetObjectByUuid(uuid, this.Scene.Children);
+            if (obj is not null)
+            {
+                if (position is not null)
+                {
+                    obj.Position = position;
+                }
+                if (rotation is not null)
+                {
+                    obj.Rotation = rotation;
+                }
+                if (scale is not null)
+                {
+                    obj.Scale = scale;
+                }
+            }
+        }
+
+        /// <summary>
         /// <para>Selects object in scene by it's unique identifier</para>
         /// </summary>
         /// <param name="uuid">Unique identifier of object to select</param>
