@@ -85,14 +85,14 @@
                     Math.Cos(phi),
                     Random.Shared.NextDouble() * 4
                 );
-            }).ToArray();
+            }).ToList();
         scene.Add(
             new Points
             {
                 Geometry = new PointsGeometry
                 {
                     Points = points,
-                    Colors = points.Select((xyz) => new Vector3((xyz.X + 1) / 2, (xyz.Y + 1) / 2, xyz.Z / 4)).ToArray()
+                    Colors = points.Select((xyz) => new Vector3((xyz.X + 1) / 2, (xyz.Y + 1) / 2, xyz.Z / 4)).ToList()
                 },
                 Material = new PointsMaterial
                 {

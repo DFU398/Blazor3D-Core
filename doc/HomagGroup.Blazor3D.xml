@@ -749,27 +749,27 @@
         </member>
         <member name="P:HomagGroup.Blazor3D.Geometires.PointsGeometry.Points">
             <summary>
-            Positions of each point. Defaults to empty array.
+            Positions of each point. Defaults to empty list.
             </summary>
         </member>
         <member name="P:HomagGroup.Blazor3D.Geometires.PointsGeometry.Normals">
             <summary>
-            Normal vectors for each point. Defaults to empty array. Optional, leave empty if not used.
+            Normal vectors for each point. Defaults to empty list. Optional, leave empty if not used.
             </summary>
         </member>
         <member name="P:HomagGroup.Blazor3D.Geometires.PointsGeometry.Colors">
             <summary>
-            RGB colors for each point. Defaults to empty array. Optional, leave empty if not used.
+            RGB colors for each point. Defaults to empty list. Optional, leave empty if not used.
             </summary>
         </member>
         <member name="P:HomagGroup.Blazor3D.Geometires.PointsGeometry.Intensities">
             <summary>
-            Intensities for each point. Defaults to empty array. Optional, leave empty if not used.
+            Intensities for each point. Defaults to empty list. Optional, leave empty if not used.
             </summary>
         </member>
         <member name="P:HomagGroup.Blazor3D.Geometires.PointsGeometry.Labels">
             <summary>
-            Numeric labels for each point. Defaults to empty array. Optional, leave empty if not used.
+            Numeric labels for each point. Defaults to empty list. Optional, leave empty if not used.
             </summary>
         </member>
         <member name="T:HomagGroup.Blazor3D.Geometires.RingGeometry">
