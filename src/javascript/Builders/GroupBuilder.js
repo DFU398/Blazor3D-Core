@@ -16,6 +16,7 @@ class GroupBuilder {
         Transforms.setPosition(group, options.position);
         Transforms.setRotation(group, options.rotation);
         Transforms.setScale(group, options.scale);
+        group.uuid = options.uuid;
         return group;
     }
 }
