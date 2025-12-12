@@ -196,6 +196,38 @@ class GeometryBuilder {
       return geometry;
     }
 
+    if (options.type == "TrianglesGeometry") {
+      const geometry = new THREE.BufferGeometry();
+      const vertices = [];
+      const normals = [];
+      let groupIndex = 0;
+      let groupStartVertexIndex = 0;
+
+      for (let i = 0, l = options.triangles.length; i < l; i ++) {
+        const triangle = options.triangles[i];
+        
+        vertices.push(
+          triangle.positionA.x, triangle.positionA.y, triangle.positionA.z,
+          triangle.positionB.x, triangle.positionB.y, triangle.positionB.z,
+          triangle.positionC.x, triangle.positionC.y, triangle.positionC.z
+        );
+        normals.push(
+          triangle.normalA.x, triangle.normalA.y, triangle.normalA.z,
+          triangle.normalB.x, triangle.normalB.y, triangle.normalB.z,
+          triangle.normalC.x, triangle.normalC.y, triangle.normalC.z
+        );
+
+        geometry.addGroup(groupStartVertexIndex, 3, groupIndex);
+        groupIndex++;
+        groupStartVertexIndex += 3;
+      }
+
+      geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+      geometry.setAttribute('normal', new THREE.Float32BufferAttribute(normals, 3));
+      geometry.uuid = options.uuid;
+      return geometry;
+    }
+
     console.log("geometry type not found", options);
   }
 }

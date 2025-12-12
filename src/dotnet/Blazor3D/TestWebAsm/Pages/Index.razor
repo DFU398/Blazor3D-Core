@@ -2,6 +2,7 @@
 @using HomagGroup.Blazor3D.Enums
 @using HomagGroup.Blazor3D.Geometires
 @using HomagGroup.Blazor3D.Lights
+@using HomagGroup.Blazor3D.Materials
 @using HomagGroup.Blazor3D.Maths
 @using HomagGroup.Blazor3D.Objects
 @using HomagGroup.Blazor3D.Scenes
@@ -73,6 +74,15 @@
                 Scale = new Vector3(0.5f, 1f, 1f)
             });
 
+        scene.Add(
+            new Mesh()
+            {
+                Geometry = CubeFromTriangles(),
+                Position = new Vector3(5, 0, 0),
+                EdgesMaterial = new LineBasicMaterial { Color = "black" }
+            }
+        );
+
         return base.OnInitializedAsync();
     }
 
@@ -91,6 +101,43 @@
        //     null,
        //     Guid.NewGuid());
        // await View3D1.SetCameraPositionAsync(new Vector3(0, 1, 5));
+    }
+
+    private TrianglesGeometry CubeFromTriangles()
+    {
+        var left = -1;
+        var right = 1;
+        var top = 1;
+        var bottom = -1;
+        var front = 1;
+        var back = -1;
+        var ltf = new Vector3(left, top, front);
+        var rtf = new Vector3(right, top, front);
+        var lbf = new Vector3(left, bottom, front);
+        var rbf = new Vector3(right, bottom, front);
+        var ltb = new Vector3(left, top, back);
+        var rtb = new Vector3(right, top, back);
+        var lbb = new Vector3(left, bottom, back);
+        var rbb = new Vector3(right, bottom, back);
+        return
+            new TrianglesGeometry()
+            {
+                Triangles = new List<Triangle3>
+                {
+                    new Triangle3{PositionA=ltf, PositionB=lbf, PositionC=rbf}.WithNormalsFromPositions(),
+                    new Triangle3{PositionA=ltf, PositionB=rbf, PositionC=rtf}.WithNormalsFromPositions(),
+                    new Triangle3{PositionA=ltb, PositionB=rtb, PositionC=rbb}.WithNormalsFromPositions(),
+                    new Triangle3{PositionA=ltb, PositionB=rbb, PositionC=lbb}.WithNormalsFromPositions(),
+                    new Triangle3{PositionA=ltb, PositionB=lbb, PositionC=lbf}.WithNormalsFromPositions(),
+                    new Triangle3{PositionA=ltb, PositionB=lbf, PositionC=ltf}.WithNormalsFromPositions(),
+                    new Triangle3{PositionA=rtf, PositionB=rbf, PositionC=rbb}.WithNormalsFromPositions(),
+                    new Triangle3{PositionA=rtf, PositionB=rbb, PositionC=rtb}.WithNormalsFromPositions(),
+                    new Triangle3{PositionA=ltf, PositionB=rtf, PositionC=rtb}.WithNormalsFromPositions(),
+                    new Triangle3{PositionA=ltf, PositionB=rtb, PositionC=ltb}.WithNormalsFromPositions(),
+                    new Triangle3{PositionA=lbf, PositionB=lbb, PositionC=rbb}.WithNormalsFromPositions(),
+                    new Triangle3{PositionA=lbf, PositionB=rbb, PositionC=rbf}.WithNormalsFromPositions(),
+                }
+            };
     }
 
 }
