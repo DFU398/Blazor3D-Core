@@ -344,6 +344,26 @@ class Viewer3D {
     return null;
   }
 
+  moveObjectByUuid(positionOptions, uuid) {
+    let obj = this.scene.getObjectByProperty("uuid", uuid);
+    if (obj) {
+      if(positionOptions.position != null)
+      {
+        Transforms.setPosition(obj, positionOptions.position);
+      }
+      if(positionOptions.rotation != null)
+      {
+        Transforms.setRotation(obj, positionOptions.rotation);
+      }
+      if(positionOptions.scale != null)
+      {
+        Transforms.setScale(obj, positionOptions.scale);
+      }
+      return true;
+    }
+    return false;
+  }
+
   removeByUuid(uuid) {
     let obj = this.scene.getObjectByProperty("uuid", uuid);
     if (obj) {

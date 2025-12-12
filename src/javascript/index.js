@@ -22,6 +22,11 @@ export function updateScene(json) {
   viewer3d.updateScene(sceneOptions);
 }
 
+export function moveObjectByUuid(json, guid) {
+  const positionOptions = JSON.parse(json);
+  viewer3d.moveObjectByUuid(positionOptions, guid);
+}
+
 export function removeByUuid(guid) {
   return viewer3d.removeByUuid(guid);
 }
